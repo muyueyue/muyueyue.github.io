@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="jiahao">
 <meta property="og:description" content="工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法模式是一">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-15T10:02:13.000Z">
+<meta property="og:updated_time" content="2017-08-15T10:28:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工厂模式">
 <meta name="twitter:description" content="工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法模式是一">
@@ -376,7 +376,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//圆形类</div><div class="line">public class Circle implements Shape&#123;</div><div class="line">  public void print()&#123;</div><div class="line">    System.out.println(&quot;This is a Circle&quot;);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>SquareFactory.java</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//正方形工厂类实现</div><div class="line">public class SquareFactory implements Factory&#123;</div><div class="line"></div><div class="line">  public Shape createShape()&#123;</div><div class="line">    return new Square();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Factory.java</p>
+<p>CircleFactory.java</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//圆形工厂类实现</div><div class="line">public class CircleFactory implements Factory&#123;</div><div class="line"></div><div class="line">  public Shape createShape()&#123;</div><div class="line">    return new Circle();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>使用工厂类获取对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class Test&#123;</div><div class="line">  public static void main(String[] args)&#123;</div><div class="line">    Shape shape = CircleFactory.createShape(&quot;circle&quot;);</div><div class="line">    shape.print();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>输出：</p>
