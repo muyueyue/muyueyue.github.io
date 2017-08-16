@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="简单工厂模式(Simple Factory Pattern)：又称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。 使用者向工厂类的方法中传递一个可以标识某个类的参数，该方法便会根据参数向使用者返回一个对应的类实例。 代码实">
+<meta name="description" content="背景介绍简单工厂模式(Simple Factory Pattern)：又称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。 使用者向工厂类的方法中传递一个可以标识某个类的参数，该方法便会根据参数向使用者返回一个对应的类实例。">
 <meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="简单工厂模式">
 <meta property="og:url" content="http://yoursite.com/2017/08/15/简单工厂模式/index.html">
 <meta property="og:site_name" content="jiahao">
-<meta property="og:description" content="简单工厂模式(Simple Factory Pattern)：又称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。 使用者向工厂类的方法中传递一个可以标识某个类的参数，该方法便会根据参数向使用者返回一个对应的类实例。 代码实">
+<meta property="og:description" content="背景介绍简单工厂模式(Simple Factory Pattern)：又称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。 使用者向工厂类的方法中传递一个可以标识某个类的参数，该方法便会根据参数向使用者返回一个对应的类实例。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-15T10:02:29.000Z">
+<meta property="og:updated_time" content="2017-08-16T03:04:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单工厂模式">
-<meta name="twitter:description" content="简单工厂模式(Simple Factory Pattern)：又称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。 使用者向工厂类的方法中传递一个可以标识某个类的参数，该方法便会根据参数向使用者返回一个对应的类实例。 代码实">
+<meta name="twitter:description" content="背景介绍简单工厂模式(Simple Factory Pattern)：又称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。 使用者向工厂类的方法中传递一个可以标识某个类的参数，该方法便会根据参数向使用者返回一个对应的类实例。">
 
 
 
@@ -362,10 +362,9 @@
       
 
       
-        <p>简单工厂模式(Simple Factory Pattern)：又称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。</p>
+        <h4 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h4><p>简单工厂模式(Simple Factory Pattern)：又称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。</p>
 <p>使用者向工厂类的方法中传递一个可以标识某个类的参数，该方法便会根据参数向使用者返回一个对应的类实例。</p>
-<p>代码实现：</p>
-<p>Shape.java</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>Shape.java</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//基类</div><div class="line">public interface Shape&#123;</div><div class="line">  public void print();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>Square.java</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//正方形类</div><div class="line">public class Square implements Shape&#123;</div><div class="line">  public void print()&#123;</div><div class="line">    System.out.println(&quot;This is a Square&quot;);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -378,8 +377,7 @@
 <p>使用工厂类获取对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class Test&#123;</div><div class="line">  public static void main(String[] args)&#123;</div><div class="line">    Shape shape = Factory.get(&quot;circle&quot;);</div><div class="line">    shape.print();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>输出：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">This is a Circle</div></pre></td></tr></table></figure>
-<p>总结：</p>
-<p>简单工厂模式的思想是将对象的生成交由一个第三方（工厂类）统一管理，第三方提供一个获取对象的统一方法，通过向第三方的方法传递一个区别不同类的标识来获取不同的类对象。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>简单工厂模式的思想是将对象的生成交由一个第三方（工厂类）统一管理，第三方提供一个获取对象的统一方法，通过向第三方的方法传递一个区别不同类的标识来获取不同的类对象。</p>
 <p>优点是将对象的生成和使用分离开来，达到解耦的目的。</p>
 <p>缺点是将对象的产生都交由第三方管理（工厂类），一旦第三方出现异常，将影响所有对象的获取和使用。另一方面如果业务有较大变动，不得不取修改第三方的实现，违背了开闭原则，增加了维护成本。</p>
 
@@ -476,8 +474,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -492,7 +499,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -552,6 +559,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法模式是一">
+<meta name="description" content="背景介绍工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法">
 <meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="工厂模式">
 <meta property="og:url" content="http://yoursite.com/2017/08/15/工厂模式/index.html">
 <meta property="og:site_name" content="jiahao">
-<meta property="og:description" content="工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法模式是一">
+<meta property="og:description" content="背景介绍工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-15T10:28:09.000Z">
+<meta property="og:updated_time" content="2017-08-16T03:04:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="工厂模式">
-<meta name="twitter:description" content="工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法模式是一">
+<meta name="twitter:description" content="背景介绍工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法">
 
 
 
@@ -362,11 +362,10 @@
       
 
       
-        <p>工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法模式是一种类创建型模式。</p>
+        <h4 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h4><p>工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法模式是一种类创建型模式。</p>
 <p>在工厂方法模式中，我们不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p>
 <p>在简单工厂模式中只提供一个工厂类，该工厂类处于对产品类进行实例化的中心位置，它需要知道每一个产品对象的创建细节，并决定何时实例化哪一个产品类。简单工厂模式最大的缺点是当有新产品要加入到系统中时，必须修改工厂类，需要在其中加入必要的业务逻辑，这违背了“开闭原则”。此外，在简单工厂模式中，所有的产品都由同一个工厂创建，工厂类职责较重，业务逻辑较为复杂，具体产品与工厂类之间的耦合度高，严重影响了系统的灵活性和扩展性，而工厂方法模式则可以很好地解决这一问题。</p>
-<p>代码实现：</p>
-<p>Shape.java</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>Shape.java</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//图形接口</div><div class="line">public interface Shape&#123;</div><div class="line">  public void print();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>Factory.java</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//工厂接口</div><div class="line">public interface Factory&#123;</div><div class="line">  public Shape createShape();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -378,11 +377,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//正方形工厂类实现</div><div class="line">public class SquareFactory implements Factory&#123;</div><div class="line"></div><div class="line">  public Shape createShape()&#123;</div><div class="line">    return new Square();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>CircleFactory.java</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//圆形工厂类实现</div><div class="line">public class CircleFactory implements Factory&#123;</div><div class="line"></div><div class="line">  public Shape createShape()&#123;</div><div class="line">    return new Circle();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>使用工厂类获取对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class Test&#123;</div><div class="line">  public static void main(String[] args)&#123;</div><div class="line">    Shape shape = CircleFactory.createShape(&quot;circle&quot;);</div><div class="line">    shape.print();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>使用工厂类获取对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class Test&#123;</div><div class="line">  public static void main(String[] args)&#123;</div><div class="line">    Shape shape = CircleFactory.createShape();</div><div class="line">    shape.print();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>输出：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">This is a Circle</div></pre></td></tr></table></figure>
-<p>总结：</p>
-<p>工厂模式相对于简单工厂模式来说，工厂模式将生成对象的工作交给了工厂的子类，由相应的子类工厂去生成相应的对象，这样将任务进行了分解，如果有新的业务增加了一些新的类，只需要新增一些对应的工厂类实现，而不必去修改原有的工厂类代码。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>工厂模式相对于简单工厂模式来说，工厂模式将生成对象的工作交给了工厂的子类，由相应的子类工厂去生成相应的对象，这样将任务进行了分解，如果有新的业务增加了一些新的类，只需要新增一些对应的工厂类实现，而不必去修改原有的工厂类代码。</p>
 
       
     </div>
@@ -422,6 +420,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/16/抽象工厂模式/" rel="prev" title="抽象工厂模式">
+                抽象工厂模式 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -473,8 +475,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -489,7 +500,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -549,6 +560,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
