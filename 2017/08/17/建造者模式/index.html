@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="背景介绍工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法">
+<meta name="description" content="背景介绍在生活中我们能在马路上看到各式各样的汽车，这些汽车都是在工厂中由轮胎，发动机，座椅，方向盘等部件组成的。建造者模式就是对这种情况的一种抽象，建造者模式让使用者不需要去关心产品的具体的复杂的构造过程，建造者直接向使用者返回一个完整的产品，就像工厂屏蔽了汽车的实现过程，客户花钱就能获得一辆直接能上路的汽车。 建造者模式是较为复杂的创建型模式，它将客户端与包含多个组成部分（或部件）的复杂对象的创">
 <meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工厂模式">
-<meta property="og:url" content="http://yoursite.com/2017/08/15/工厂模式/index.html">
+<meta property="og:title" content="建造者模式">
+<meta property="og:url" content="http://yoursite.com/2017/08/17/建造者模式/index.html">
 <meta property="og:site_name" content="jiahao">
-<meta property="og:description" content="背景介绍工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法">
+<meta property="og:description" content="背景介绍在生活中我们能在马路上看到各式各样的汽车，这些汽车都是在工厂中由轮胎，发动机，座椅，方向盘等部件组成的。建造者模式就是对这种情况的一种抽象，建造者模式让使用者不需要去关心产品的具体的复杂的构造过程，建造者直接向使用者返回一个完整的产品，就像工厂屏蔽了汽车的实现过程，客户花钱就能获得一辆直接能上路的汽车。 建造者模式是较为复杂的创建型模式，它将客户端与包含多个组成部分（或部件）的复杂对象的创">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-16T08:45:01.000Z">
+<meta property="og:updated_time" content="2017-08-17T03:48:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="工厂模式">
-<meta name="twitter:description" content="背景介绍工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法">
+<meta name="twitter:title" content="建造者模式">
+<meta name="twitter:description" content="背景介绍在生活中我们能在马路上看到各式各样的汽车，这些汽车都是在工厂中由轮胎，发动机，座椅，方向盘等部件组成的。建造者模式就是对这种情况的一种抽象，建造者模式让使用者不需要去关心产品的具体的复杂的构造过程，建造者直接向使用者返回一个完整的产品，就像工厂屏蔽了汽车的实现过程，客户花钱就能获得一辆直接能上路的汽车。 建造者模式是较为复杂的创建型模式，它将客户端与包含多个组成部分（或部件）的复杂对象的创">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/15/工厂模式/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/17/建造者模式/"/>
 
 
 
 
 
-  <title>工厂模式 | jiahao</title>
+  <title>建造者模式 | jiahao</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/15/工厂模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/17/建造者模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiahao">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">工厂模式</h1>
+          <h1 class="post-title" itemprop="name headline">建造者模式</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T17:55:19+08:00">
-                2017-08-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-17T11:46:47+08:00">
+                2017-08-17
               </time>
             
 
@@ -362,25 +362,26 @@
       
 
       
-        <h4 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h4><p>工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法模式是一种类创建型模式。</p>
-<p>在工厂方法模式中，我们不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p>
-<p>在简单工厂模式中只提供一个工厂类，该工厂类处于对产品类进行实例化的中心位置，它需要知道每一个产品对象的创建细节，并决定何时实例化哪一个产品类。简单工厂模式最大的缺点是当有新产品要加入到系统中时，必须修改工厂类，需要在其中加入必要的业务逻辑，这违背了“开闭原则”。此外，在简单工厂模式中，所有的产品都由同一个工厂创建，工厂类职责较重，业务逻辑较为复杂，具体产品与工厂类之间的耦合度高，严重影响了系统的灵活性和扩展性，而工厂方法模式则可以很好地解决这一问题。</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>Shape.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//图形接口</div><div class="line">public interface Shape&#123;</div><div class="line">  public void print();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Factory.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//工厂接口</div><div class="line">public interface Factory&#123;</div><div class="line">  public Shape createShape();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Square.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//正方形类</div><div class="line">public class Square implements Shape&#123;</div><div class="line">  public void print()&#123;</div><div class="line">    System.out.println(&quot;This is a Square&quot;);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Circle.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//圆形类</div><div class="line">public class Circle implements Shape&#123;</div><div class="line">  public void print()&#123;</div><div class="line">    System.out.println(&quot;This is a Circle&quot;);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>SquareFactory.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//正方形工厂类实现</div><div class="line">public class SquareFactory implements Factory&#123;</div><div class="line"></div><div class="line">  public Shape createShape()&#123;</div><div class="line">    return new Square();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>CircleFactory.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//圆形工厂类实现</div><div class="line">public class CircleFactory implements Factory&#123;</div><div class="line"></div><div class="line">  public Shape createShape()&#123;</div><div class="line">    return new Circle();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>使用工厂类获取对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class Test&#123;</div><div class="line">  public static void main(String[] args)&#123;</div><div class="line">    Shape shape = CircleFactory.createShape();</div><div class="line">    shape.print();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>输出：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">This is a Circle</div></pre></td></tr></table></figure>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>工厂模式相对于简单工厂模式来说，工厂模式将生成对象的工作交给了工厂的子类，由相应的子类工厂去生成相应的对象，这样将任务进行了分解，如果有新的业务增加了一些新的类，只需要新增一些对应的工厂类实现，而不必去修改原有的工厂类代码。</p>
+        <h4 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h4><p>在生活中我们能在马路上看到各式各样的汽车，这些汽车都是在工厂中由轮胎，发动机，座椅，方向盘等部件组成的。建造者模式就是对这种情况的一种抽象，建造者模式让使用者不需要去关心产品的具体的复杂的构造过程，建造者直接向使用者返回一个完整的产品，就像工厂屏蔽了汽车的实现过程，客户花钱就能获得一辆直接能上路的汽车。</p>
+<p>建造者模式是较为复杂的创建型模式，它将客户端与包含多个组成部分（或部件）的复杂对象的创建过程分离，客户端无须知道复杂对象的内部组成部分与装配方式，只需要知道所需建造者的类型即可。建造者关注如何一步一步创建一个的复杂对象，不同的具体建造者定义了不同的创建过程，且具体建造者相互独立，增加新的建造者非常方便，无须修改已有代码，系统具有较好的扩展性。</p>
+<p>建造者模式(Builder Pattern)：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。建造者模式是一种对象创建型模式。</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><blockquote>
+<p>建造者模式可以分为四个角色：产品角色，抽象建造者，建造者，指挥者</p>
+</blockquote>
+<p>Product.java（产品角色）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">public class Product&#123;</div><div class="line"></div><div class="line">    private String paramA;</div><div class="line"></div><div class="line">    private String paramB;</div><div class="line"></div><div class="line">    private String paramC;</div><div class="line">    </div><div class="line">    public void setParamA(String paramA)&#123;</div><div class="line">        this.paramA = paramA;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void setParamB(String paramB)&#123;</div><div class="line">        this.paramB = paramB;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void setParamC(String paramC)&#123;</div><div class="line">        this.paramC = paramC;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Builder.java（抽象建造者）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public abstract Builder&#123;&#125;</div></pre></td></tr></table></figure>
+<p>AchieveBuilder.java（建造者）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">public class AchieveBuilder extends Builder&#123;</div><div class="line">    </div><div class="line">    private Product product = new Product();</div><div class="line">    </div><div class="line">    public  void buildParamA()&#123;</div><div class="line">        product.setParamA(&quot;A&quot;);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void buildParamB()&#123;</div><div class="line">        product.setParamB(&quot;B&quot;);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void buildParamC()&#123;</div><div class="line">        product.setParamC(&quot;C&quot;);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public Product getResult()&#123;</div><div class="line">        return this.product;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Director.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class Director&#123;</div><div class="line"></div><div class="line">    public static Product getProduct(Builder builder)&#123;</div><div class="line">    </div><div class="line">        builder.builderParamA();</div><div class="line">        </div><div class="line">        builder.builderParamB();</div><div class="line">        </div><div class="line">        builder.builderParamC();</div><div class="line">        </div><div class="line">        return builder.getResult();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Test.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public class Test&#123;</div><div class="line"></div><div class="line">    public static void main(String[] args)&#123;</div><div class="line">    </div><div class="line">        //直接获取一个完整的产品，产品的属性分别为A,B,C</div><div class="line">        AchieveBuilder achieveBuilder = new AchieveBuilder();</div><div class="line">        Product product = Director.getProduct(achieveBuilder);</div><div class="line">    </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Product类为一个产品；Builer类的实现类提供了一系列对产品的操作方法，并提供了一个返回产品的方法；Director类使用建造者的方法组装出一个具体的产品并返回。</p>
+<p>上诉实现中产品有三个属性paramA,paramB,paramC，建造者分别为产品的三个属性设置为A，B，C，并传递给指挥者的方法构造出一个特定的产品。如果想获得一个属性为E，F，G的产品，只需要新建一个建造者，该建造者调用产品的set方法为属性赋值E，F，G，然后向指挥者传递这个建造者即可。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>建造者模式屏蔽了产品的具体实现细节，使用者能通过这种模式直接获得一个完整的产品。每种产品对应一种建造者，需要不同的产品只需要实现不同的建造者类就行。</p>
+<p>建造者模式可能和抽象工厂模式有些类似，但区别在于抽象工厂模式提供的是单个对象的获取，但建造者模式是提供了对多个对象组合成的产品获取的实现。例如某个产品分别由类型A，B，C组成，抽象工厂模式是帮组用户获取到单个A或B或C，并不会对ABC进行组合，而建造者模式将ABC进行组合成产品并返回。</p>
 
       
     </div>
@@ -411,8 +412,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/15/简单工厂模式/" rel="next" title="简单工厂模式">
-                <i class="fa fa-chevron-left"></i> 简单工厂模式
+              <a href="/2017/08/16/原型模式/" rel="next" title="原型模式">
+                <i class="fa fa-chevron-left"></i> 原型模式
               </a>
             
           </div>
@@ -420,10 +421,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/16/抽象工厂模式/" rel="prev" title="抽象工厂模式">
-                抽象工厂模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
