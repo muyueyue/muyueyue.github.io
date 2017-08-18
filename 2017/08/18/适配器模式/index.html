@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="背景介绍工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法">
+<meta name="description" content="背景介绍在生活中我们会遇到一个这样的问题，如何将一张内存卡插入到电脑上，由于内存卡和电脑的USB接口规格不同，因此不能直接插入，一般会选择使用读卡器，即将内存卡插入到读卡器的一端，读卡器的另一端插入到电脑的USB接口中，使用读卡器来让内存卡和电脑的USB接口进行整合。在软件设计也存在类似的模式，用来整合两个不兼容的接口，我们称之为“适配器模式”。 适配器模式可以将一个类的接口和另一个类的接口匹配起">
 <meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工厂模式">
-<meta property="og:url" content="http://yoursite.com/2017/08/15/工厂模式/index.html">
+<meta property="og:title" content="适配器模式">
+<meta property="og:url" content="http://yoursite.com/2017/08/18/适配器模式/index.html">
 <meta property="og:site_name" content="jiahao">
-<meta property="og:description" content="背景介绍工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法">
+<meta property="og:description" content="背景介绍在生活中我们会遇到一个这样的问题，如何将一张内存卡插入到电脑上，由于内存卡和电脑的USB接口规格不同，因此不能直接插入，一般会选择使用读卡器，即将内存卡插入到读卡器的一端，读卡器的另一端插入到电脑的USB接口中，使用读卡器来让内存卡和电脑的USB接口进行整合。在软件设计也存在类似的模式，用来整合两个不兼容的接口，我们称之为“适配器模式”。 适配器模式可以将一个类的接口和另一个类的接口匹配起">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-16T08:45:01.000Z">
+<meta property="og:updated_time" content="2017-08-18T03:04:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="工厂模式">
-<meta name="twitter:description" content="背景介绍工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法">
+<meta name="twitter:title" content="适配器模式">
+<meta name="twitter:description" content="背景介绍在生活中我们会遇到一个这样的问题，如何将一张内存卡插入到电脑上，由于内存卡和电脑的USB接口规格不同，因此不能直接插入，一般会选择使用读卡器，即将内存卡插入到读卡器的一端，读卡器的另一端插入到电脑的USB接口中，使用读卡器来让内存卡和电脑的USB接口进行整合。在软件设计也存在类似的模式，用来整合两个不兼容的接口，我们称之为“适配器模式”。 适配器模式可以将一个类的接口和另一个类的接口匹配起">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/15/工厂模式/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/18/适配器模式/"/>
 
 
 
 
 
-  <title>工厂模式 | jiahao</title>
+  <title>适配器模式 | jiahao</title>
   
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/15/工厂模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/适配器模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiahao">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">工厂模式</h1>
+          <h1 class="post-title" itemprop="name headline">适配器模式</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T17:55:19+08:00">
-                2017-08-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T11:01:58+08:00">
+                2017-08-18
               </time>
             
 
@@ -362,25 +362,43 @@
       
 
       
-        <h4 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h4><p>工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的工厂接口，让其子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法模式是一种类创建型模式。</p>
-<p>在工厂方法模式中，我们不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p>
-<p>在简单工厂模式中只提供一个工厂类，该工厂类处于对产品类进行实例化的中心位置，它需要知道每一个产品对象的创建细节，并决定何时实例化哪一个产品类。简单工厂模式最大的缺点是当有新产品要加入到系统中时，必须修改工厂类，需要在其中加入必要的业务逻辑，这违背了“开闭原则”。此外，在简单工厂模式中，所有的产品都由同一个工厂创建，工厂类职责较重，业务逻辑较为复杂，具体产品与工厂类之间的耦合度高，严重影响了系统的灵活性和扩展性，而工厂方法模式则可以很好地解决这一问题。</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>Shape.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//图形接口</div><div class="line">public interface Shape&#123;</div><div class="line">  public void print();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Factory.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//工厂接口</div><div class="line">public interface Factory&#123;</div><div class="line">  public Shape createShape();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Square.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//正方形类</div><div class="line">public class Square implements Shape&#123;</div><div class="line">  public void print()&#123;</div><div class="line">    System.out.println(&quot;This is a Square&quot;);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Circle.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//圆形类</div><div class="line">public class Circle implements Shape&#123;</div><div class="line">  public void print()&#123;</div><div class="line">    System.out.println(&quot;This is a Circle&quot;);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>SquareFactory.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//正方形工厂类实现</div><div class="line">public class SquareFactory implements Factory&#123;</div><div class="line"></div><div class="line">  public Shape createShape()&#123;</div><div class="line">    return new Square();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>CircleFactory.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//圆形工厂类实现</div><div class="line">public class CircleFactory implements Factory&#123;</div><div class="line"></div><div class="line">  public Shape createShape()&#123;</div><div class="line">    return new Circle();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>使用工厂类获取对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class Test&#123;</div><div class="line">  public static void main(String[] args)&#123;</div><div class="line">    Shape shape = CircleFactory.createShape();</div><div class="line">    shape.print();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>输出：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">This is a Circle</div></pre></td></tr></table></figure>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>工厂模式相对于简单工厂模式来说，工厂模式将生成对象的工作交给了工厂的子类，由相应的子类工厂去生成相应的对象，这样将任务进行了分解，如果有新的业务增加了一些新的类，只需要新增一些对应的工厂类实现，而不必去修改原有的工厂类代码。</p>
+        <h4 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h4><p>在生活中我们会遇到一个这样的问题，如何将一张内存卡插入到电脑上，由于内存卡和电脑的USB接口规格不同，因此不能直接插入，一般会选择使用读卡器，即将内存卡插入到读卡器的一端，读卡器的另一端插入到电脑的USB接口中，使用读卡器来让内存卡和电脑的USB接口进行整合。在软件设计也存在类似的模式，用来整合两个不兼容的接口，我们称之为“适配器模式”。</p>
+<p>适配器模式可以将一个类的接口和另一个类的接口匹配起来，而无须修改原来的适配者接口和抽象目标类接口。适配器模式定义如下：</p>
+<p>适配器模式(Adapter Pattern)：将一个接口转换成客户希望的另一个接口，使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。</p>
+<blockquote>
+<p>注：在适配器模式定义中所提及的接口是指广义的接口，它可以表示一个方法或者方法的集合</p>
+</blockquote>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>我们有如下两个类：</p>
+<p>Target.java（目标类）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public interface Target&#123;</div><div class="line">    public void request();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Adaptee.java（适配者）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public class Adaptee&#123;</div><div class="line">    public void otherRequest()&#123;</div><div class="line">        //do something</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>一个用户想调用Target类的request方法，该方法并不能满足用户的要求，但Adaptee类中的otherRequest方法却符合用户需求，因此我们引进了一个适配器类将两个类的方法进行整合。适配器代码如下：</p>
+<p>Adapter.java（适配器）</p>
+<ul>
+<li><h5 id="对象结构型模式"><a href="#对象结构型模式" class="headerlink" title="对象结构型模式"></a>对象结构型模式</h5></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class Adapter implements Target&#123;</div><div class="line">    private Adaptee adaptee = new Adaptee();</div><div class="line">    public void request()&#123;</div><div class="line">        adaptee.otherRequest();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><h5 id="类结构型模式"><a href="#类结构型模式" class="headerlink" title="类结构型模式"></a>类结构型模式</h5></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class Adapter extends Adaptee implements Target &#123;  </div><div class="line">    public void request() &#123;  </div><div class="line">        otherRequest();  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用适配器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class Client&#123;</div><div class="line">    public static void main(String[] args)&#123;</div><div class="line">        Adapter adapter = new Adapter();</div><div class="line">        adapter.request();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对象适配器使用的是类的组合，将Adaptee组合到Adapter中；类结构模式使用的是类的继承，这里推荐使用组合而不使用继承，且Java不支持多继承，如果Target是一个具体的类时类结构不适用。</p>
+<p>当我们在某个地方要使用Target类的request方法时，我们只需要实例化出一个Adapter对象，调用request方法就能实现Adaptee类中otherRequest方法的功能。</p>
+<p>到这里可能有些人会疑问，既然Target的request方法不能满足需求而Adaptee的otherRequest方法能，为什么不直接调用otherRequest方法呢？试想如果你使用一个第三方的工具，该工具中的某个方法接受一个Target类型的参数，并调用Target的request方法。你不能去修改第三方工具的代码，又为了实现需求，你的办法就是使用适配器模式，引入适配器类实现Target接口，在重载的request方法中调用otherRequest方法已实现需求。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>适配器模式将现有接口转化为客户类所期望的接口，实现了对现有类的复用，它是一种使用频率非常高的设计模式，在软件开发中得以广泛应用，在spring等开源框架、驱动程序设计（如JDBC中的数据库驱动程序）中也使用了适配器模式。</p>
+<p>优点：</p>
+<ul>
+<li>将目标类和适配者类解耦</li>
+<li>增加了类的透明性和复用性</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>对于Java、C#等不支持多重类继承的语言，一次最多只能适配一个适配者类，不能同时适配多个适配者</li>
+<li>适配者类不能为最终类，如在Java中不能为final类</li>
+<li>在Java、C#等语言中，类适配器模式中的目标抽象类只能为接口，不能为类，其使用有一定的局限性。</li>
+</ul>
 
       
     </div>
@@ -411,8 +429,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/15/简单工厂模式/" rel="next" title="简单工厂模式">
-                <i class="fa fa-chevron-left"></i> 简单工厂模式
+              <a href="/2017/08/17/建造者模式/" rel="next" title="建造者模式">
+                <i class="fa fa-chevron-left"></i> 建造者模式
               </a>
             
           </div>
@@ -420,10 +438,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/16/抽象工厂模式/" rel="prev" title="抽象工厂模式">
-                抽象工厂模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -557,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对象结构型模式"><span class="nav-number">2.1.</span> <span class="nav-text">对象结构型模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#类结构型模式"><span class="nav-number">2.2.</span> <span class="nav-text">类结构型模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
