@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,JVM," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="本文要讲述的是Java class文件的结构，class文件是一种程序的二进制表示，是能被JVM识别文件，class文件不一定非要是Java源文件编译而形成的，可以是其他语言编译形成的。Class文件有着严格的结构，它是以一个字节为基本单位的二进制流，由很多数据项组成，数据项之间没有间隔，也没有作为分割的标记，其不同数据项的识别是依靠固定的长度或者具体指明的大小 在我个人学习class文件的过程中">
+<meta name="keywords" content="Java,JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java class文件">
+<meta property="og:url" content="http://yoursite.com/2017/10/12/Java-class文件/index.html">
+<meta property="og:site_name" content="家浩">
+<meta property="og:description" content="本文要讲述的是Java class文件的结构，class文件是一种程序的二进制表示，是能被JVM识别文件，class文件不一定非要是Java源文件编译而形成的，可以是其他语言编译形成的。Class文件有着严格的结构，它是以一个字节为基本单位的二进制流，由很多数据项组成，数据项之间没有间隔，也没有作为分割的标记，其不同数据项的识别是依靠固定的长度或者具体指明的大小 在我个人学习class文件的过程中">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-16T11:27:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java class文件">
+<meta name="twitter:description" content="本文要讲述的是Java class文件的结构，class文件是一种程序的二进制表示，是能被JVM识别文件，class文件不一定非要是Java源文件编译而形成的，可以是其他语言编译形成的。Class文件有着严格的结构，它是以一个字节为基本单位的二进制流，由很多数据项组成，数据项之间没有间隔，也没有作为分割的标记，其不同数据项的识别是依靠固定的长度或者具体指明的大小 在我个人学习class文件的过程中">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/12/Java-class文件/"/>
+
+
+
+
+
+  <title>Java class文件 | 家浩</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">家浩</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/12/Java-class文件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="家浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="家浩">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java class文件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T13:59:12+08:00">
+                2017-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文要讲述的是Java class文件的结构，class文件是一种程序的二进制表示，是能被JVM识别文件，class文件不一定非要是Java源文件编译而形成的，可以是其他语言编译形成的。Class文件有着严格的结构，它是以一个字节为基本单位的二进制流，由很多数据项组成，数据项之间没有间隔，也没有作为分割的标记，其不同数据项的识别是依靠固定的长度或者具体指明的大小</p>
+<p>在我个人学习class文件的过程中确实感觉到比较抽象难理解，因此也花费了很多时间，下面我就根据自己的理解来试着用通俗的话把class文件的结构将明白</p>
+<h3 id="Class文件的组成"><a href="#Class文件的组成" class="headerlink" title="Class文件的组成"></a>Class文件的组成</h3><p>在看很多书籍资料的时候，所有关于class文件组成的介绍都是说有无符号数以及表构成，在理解何谓无符号数以及表的时候花费了很多时间，这种解释很让人迷惑。其实我觉得class文件就是由无符号数构成，什么是无符号数呢，其实就是数字或者字符串。而这些数字或者字符串有相应的类型如：</p>
+<ul>
+<li>u1 占一个字节长度的无符号数</li>
+<li>u2 占两个字节长度的无符号数</li>
+<li>u4 占四个字节长度的无符号数</li>
+<li>u8 占八个字节长度的无符号数</li>
+</ul>
+<p>而所谓的表就是由无符号数按照一定规则组成的一个结构，这里有个不恰当的比喻可以把class文件的结构想象成是一个JSON数据，JSON中的value可以是基本的数据类型（数值，字符串等），也可以是另外一个JSON，这里的基本数据类型就像class文件中的无符号数，另外一个JSON就是class结构所谓的表。但有点要注意，class文件中存储的其实是这里比喻的所有JSON中的value值，不会存储key值的。所有的value值按照顺序以二进制的形式排列。</p>
+<h4 id="Class文件的格式"><a href="#Class文件的格式" class="headerlink" title="Class文件的格式"></a>Class文件的格式</h4><p>class文件在逻辑上由数据项组成，按照数据项出现的顺序整理了如下（这里的数据项可以类比为JSON中的Key）：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>在class文件中存在的数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>magic</td>
+<td>u4</td>
+<td>1</td>
+</tr>
+<tr>
+<td>minor_version</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>major_version</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>constant_pool_count</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>constant_pool</td>
+<td>cp_info</td>
+<td>constant_pool_count-1</td>
+</tr>
+<tr>
+<td>access_flags</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>this_class</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>super_class</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>interfaces_count</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>interfaces</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>fields_count</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>fields</td>
+<td>field_info</td>
+<td>fields_count</td>
+</tr>
+<tr>
+<td>method_count</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>method</td>
+<td>method_info</td>
+<td>method_count</td>
+</tr>
+<tr>
+<td>interfaces</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>attributes_count</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>attributes</td>
+<td>attributes_info</td>
+<td>attributes_count</td>
+</tr>
+</tbody>
+</table>
+<p>下面会介绍每个数据：</p>
+<ol>
+<li><p>magic（魔数）：每个class文件前四个字节都称其为魔数，其值为：0xCAFEBABE。其意义在于JVM<br>在读取class文件的时候通过识别开头的模数就能知道这是一个class文件。如果一个文件不是以0xCAFEBABE开头的，就肯定不是一个class文件</p>
+</li>
+<li><p>minor_version和major_version：在紧接着接着class文件魔数后面的共四个字节，其中一个是次版本号，一个是主版本号。顾名思义代表着class文件的版本。其中主版本号代表着Java的某个主发布版本（例如Java 8），次版本号代表着Java主发布版的某个特定的版本号（例如Java 8下的具体版本号）。如果某个class文件的版本号超出了JVM的处理的版本范围，JVM便不会处理该class文件</p>
+</li>
+<li><p>constant_poop_count和constan_pool:常量池是class文件中非常重要的一部分。常量池以类似数组的形式存储各种表，每个数组元素对应一张表，constant_pool_count对应的值是常量池中表的个数+1，常量池中的表的索引从1开始。每个表的开始都有一个u1类型的值表示当前表是什么类型，表的类型大致有11种（可能更多），后面会列举这11种表，在class文件中会有很多地方引用常量池中的表</p>
+</li>
+<li><p>access_flags：紧接着常量池的两个字节是称为access_flags,它展示了文件中定义的类或接口的几段信息，例如：访问标志指明文件中定义的是类还是接口；还定义了在类或接口的声明中，使用了哪种修饰符；类是抽象的还是公共的等等</p>
+</li>
+<li><p>this_class:它是一个对常量池中表的索引，this_class位置的常量池入口必须为CONSTANT_CLass_info表（后面会介绍）。this_class通过对常量池的引用，最终能得到一个当前类的全限定名</p>
+</li>
+<li><p>super_class:它也是一个指向常量池的索引，最终得到当前类的直接超类的全限定名</p>
+</li>
+<li><p>interfaces_count和interfaces:interfaces是一个包含常量池索引的数组，每个索引最终指向常量池中该类的的父接口的全限定名， 因此它能指明了当前类所有的父接口，interfaces_count是interfaces的数组长度</p>
+</li>
+<li><p>fields_count和fields:fields_count是类文件中类变量以及实例变量的总数，也有可能包括Java源文件中不存在的变量，因为编译器在编译的时候可能加入一些变量，但不包括从父类或者父类接口中继承的变量。fields中以若干个表的形式存储着变量信息，每个变量对应一个表结构，表中的变量信息包括变量名称、描述符、修饰符，对于一部分final变量，可能其对应的表中存储的是指向常量池的索引</p>
+</li>
+<li><p>methods_count和methods：methods表示的信息是类中定义的所有方法，但不包括从父类以及父接口中继承的方法。methods和fields一样以若干个表的形式存储着方法的信息，包括方法名和描述符（方法的返回值类型和参数类型），如果方法既不是抽象的也不是本地的，那么方法对应的methods中的表还包括方法的局部变量和栈空间大小。如果方法中定义了异常，那么表中还存在异常列表</p>
+</li>
+<li><p>attributes_count和attributes:class文件最后的部分是属性，它给出了该文件中类或者接口所定义的属性的基本信息。attribute_count标志属性的个数即在其后的attributes中表的个数，一个表代表一个属性。属性也有多种</p>
+</li>
+</ol>
+<h4 id="特殊字符串"><a href="#特殊字符串" class="headerlink" title="特殊字符串"></a>特殊字符串</h4><p>常量池中容纳的符号引用包括三种特殊的字符串：全限定名、简单名称、描述符。所有的符号引用都包括类或者接口的权限定名，字段的符号引用除了全限定名之外还包括简单字段名和字段描述符。方法的符号引用除了全限定类型名之外，还包括简单方法名和方法描述符</p>
+<ul>
+<li><p>全限定名：在class文件中全限定名中的点用斜线取代，是一个指向类或者接口的完全路径，例如class文件中java.lang.Object的全限定名表示为java/lang/Object</p>
+</li>
+<li><p>简单名称：字段名和方法名以简单名称（非全限定名）形式出现在常量池入口中。例如：一个指向类java.lang.Object所属方法String toString()的常量池入口有一个形如“toString”的方法名</p>
+</li>
+<li><p>描述符：除了类或接口的全限定名和简单字段名，指向字段和方法的符号引用还包括描述符字符串，字段的描述符给出了字段的类型，方法描述符给出了方法的返回值和方法参数的数量、类型以及顺序</p>
+</li>
+</ul>
+<h4 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h4><p>常量池中是一系列表（cp_info）,表的结构一般是由tag和一个无符号byte类型值，tag表明了该表是什么类型和格式，表的类型一共有11种。</p>
+<h5 id="CONSTANT-Utf8-info"><a href="#CONSTANT-Utf8-info" class="headerlink" title="CONSTANT_Utf8_info"></a>CONSTANT_Utf8_info</h5><p>可变常的CONSTANT_Utf8_info表使用一种UTF-8格式的变体来存储一个常量字符串。这种类型的表可以存储多种字符串，包括：</p>
+<ul>
+<li>文字字符串，如String对象</li>
+<li>被定义的类和接口的全限定名</li>
+<li>被定义的类的超类（如果有）的权限定名</li>
+<li>被定义的类和接口的父接口的全限定名</li>
+<li>由类或者接口声明的任意字段的简单名称和描述符</li>
+<li>由类或者接口声明的任意方法的简单名称和描述符</li>
+<li>任何引用的字段的简单名称和描述符</li>
+<li>任何引用的方法的简单名称和描述符</li>
+<li>任何引用的类和接口的全限定义名</li>
+<li>与属相相关的字符串</li>
+</ul>
+<p>表结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>在class文件中存在的数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>u1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>length</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>bytes</td>
+<td>u1</td>
+<td>length</td>
+</tr>
+</tbody>
+</table>
+<p>tag： 值为1（1表示该表为CONSTANT_Utf8_info类型，所有的常量池表的类型用数值代替）</p>
+<p>length：后续bytes项的长度</p>
+<p>bytes：按照UTF-8变体格式存储的字符串（变体UTF-8和UTF-8的区别在于：第一，在标准的UTF-8编码中，字符串null使用一个字节表示，在本表中用两个字节表示；第二，bytes项中的只使用了标准UTF-8编码中单字节，双字节，三字节，标准的UTF-8中还有更长的字节表示）</p>
+<h5 id="CONSTANT-Integer-info"><a href="#CONSTANT-Integer-info" class="headerlink" title="CONSTANT_Integer_info"></a>CONSTANT_Integer_info</h5><p>固定长度是的CONSTANT_Integer_info表用来存储常量int类型值，该表只存储int值，不存储符号引用</p>
+<p>表结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>在class文件中存在的数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>u1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>bytes</td>
+<td>u4</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>tag：值为3（3代表CONSTANT_Integer_info类型）</p>
+<p>bytes：按照高位在前的格式存储int类型值</p>
+<h5 id="CONSTANT-Float-info"><a href="#CONSTANT-Float-info" class="headerlink" title="CONSTANT_Float_info"></a>CONSTANT_Float_info</h5><p>固定长度是的CONSTANT_Float_info表用来存储常量float类型值，该表只存储float值，不存储符号引用</p>
+<p>表结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>在class文件中存在的数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>u1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>bytes</td>
+<td>u4</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>tag：值为4（4代表CONSTANT_Float_info类型）</p>
+<p>bytes：按照高位在前的格式存储float类型值</p>
+<h5 id="CONSTANT-Long-info"><a href="#CONSTANT-Long-info" class="headerlink" title="CONSTANT_Long_info"></a>CONSTANT_Long_info</h5><p>固定长度是的CONSTANT_Long_info表用来存储常量long类型值，该表只存储long值，不存储符号引用</p>
+<p>表结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>在class文件中存在的数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>u1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>bytes</td>
+<td>u4</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>tag：值为5（5代表CONSTANT_long_info类型）</p>
+<p>bytes：按照高位在前的格式存储long类型值</p>
+<h5 id="CONSTANT-Double-info"><a href="#CONSTANT-Double-info" class="headerlink" title="CONSTANT_Double_info"></a>CONSTANT_Double_info</h5><p>固定长度是的CONSTANT_Double_info表用来存储常量long类型值，该表只存储long值，不存储符号引用</p>
+<p>表结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>在class文件中存在的数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>u1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>bytes</td>
+<td>u8</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>tag：值为6（6代表CONSTANT_Double_info类型）</p>
+<p>bytes：按照高位在前的格式存储Double类型值</p>
+<h5 id="CONSTANT-Class-info"><a href="#CONSTANT-Class-info" class="headerlink" title="CONSTANT_Class_info"></a>CONSTANT_Class_info</h5><p>固定长度的CONSTANT_Class_info表使用符号引用来表述类或者接口，所有的符号引用都包含一个CONSTANT_Class_info表</p>
+<p>表结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>在class文件中存在的数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>u1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>name_index</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>tag: 值为7（7代表CONSTANT_Class_info类型）</p>
+<p>name_index: 给出了包含类或者接口全限定名的CONSTANT_Utf8_info表的索引</p>
+<h5 id="CONSTANT-String-info"><a href="#CONSTANT-String-info" class="headerlink" title="CONSTANT_String_info"></a>CONSTANT_String_info</h5><p>固定长度是的CONSTANT_String_info表用来存储String类型值，该表只存储文字字符串值，不存储符号引用</p>
+<p>表结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>在class文件中存在的数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>u1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>string_index</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>tag：值为8（8代表CONSTANT_String_info类型）</p>
+<p>string_index：给出了包含文字字符串CONSTANT_Utf8_info表的索引</p>
+<h5 id="CONSTANT-Fieldref-info"><a href="#CONSTANT-Fieldref-info" class="headerlink" title="CONSTANT_Fieldref_info"></a>CONSTANT_Fieldref_info</h5><p>固定长度的CONSTANT_Fieldref_info表描述了指向字段的符号引用</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>在class文件中存在的数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>u1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>class_index</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>name_and_type_index</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>tag: 值为9（9代表CONSTANT_Fieldref_info类型）</p>
+<p>class_index:声明了被引用字段的类或者接口的CONSTANT_Class_info入口的索引</p>
+<p>name_and_type_index:提供了CONSTANT_NameAndType_info入口的索引，该入口提供了字段的简单名称以及描述符</p>
+<h5 id="CONSTANT-Methodref-info"><a href="#CONSTANT-Methodref-info" class="headerlink" title="CONSTANT_Methodref_info"></a>CONSTANT_Methodref_info</h5><p>固定长度的CONSTANT_Methodref_info表使用符号引用来表述类中声明的方法（不包括接口中的方法）</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>在class文件中存在的数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>u1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>class_index</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>name_and_type_index</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>tag: 值为10（10代表CONSTANT_Methodref_info类型）</p>
+<p>class_index: 声明了被引用方法的类的CONSTANT_Class_info入口的索引</p>
+<p>name_and_type_index：提供了CONSTANT_NameAndType_info入口的索引，该入口提供了方法的简单名称以及描述符。</p>
+<h5 id="CONSTANT-InterfaceMethodref-info"><a href="#CONSTANT-InterfaceMethodref-info" class="headerlink" title="CONSTANT_InterfaceMethodref_info"></a>CONSTANT_InterfaceMethodref_info</h5><p>固定长度的CONSTANT_InterfaceMethodref_info表使用符号引用来表述接口中声明的方法（不包括类中的方法）</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>在class文件中存在的数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>u1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>class_index</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>name_and_type_index</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>tag: 值为11（10代表CONSTANT_InterfaceMethodref_info类型）</p>
+<p>class_index: 声明了被引用方法的接口的CONSTANT_Class_info入口的索引</p>
+<p>name_and_type_index：提供了CONSTANT_NameAndType_info入口的索引，该入口提供了方法的简单名称以及描述符。</p>
+<h5 id="CONSTANT-NameAndType-info"><a href="#CONSTANT-NameAndType-info" class="headerlink" title="CONSTANT_NameAndType_info"></a>CONSTANT_NameAndType_info</h5><p>固定长度的CONSTANT_NameAndType_info表构成指向字段或者方法的符号引用的一部分。该表提供了所用字段或者方法的简单名称和描述符的常量池入口。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>在class文件中存在的数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>u1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>name_index</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>descriptor_index</td>
+<td>u2</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>tag: 值为12（12代表CONSTANT_NameAndType_info类型）</p>
+<p>name_index: 给出了CONSTANT_Utf8_info入口索引，该入口给出了字段或者方法的名称</p>
+<p>descriptor_index：给出了CONSTANT_Utf8_info入口索引，该入口给出了字段或者方法的描述符</p>
+<blockquote>
+<p>以上就是class文件的大部分结构</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/06/Java虚拟机体系结构概述/" rel="next" title="Java虚拟机体系结构概述">
+                <i class="fa fa-chevron-left"></i> Java虚拟机体系结构概述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/15/排序算法/" rel="prev" title="排序算法">
+                排序算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="家浩" />
+          <p class="site-author-name" itemprop="name">家浩</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class文件的组成"><span class="nav-number">1.</span> <span class="nav-text">Class文件的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Class文件的格式"><span class="nav-number">1.1.</span> <span class="nav-text">Class文件的格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊字符串"><span class="nav-number">1.2.</span> <span class="nav-text">特殊字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常量池"><span class="nav-number">1.3.</span> <span class="nav-text">常量池</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CONSTANT-Utf8-info"><span class="nav-number">1.3.1.</span> <span class="nav-text">CONSTANT_Utf8_info</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CONSTANT-Integer-info"><span class="nav-number">1.3.2.</span> <span class="nav-text">CONSTANT_Integer_info</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CONSTANT-Float-info"><span class="nav-number">1.3.3.</span> <span class="nav-text">CONSTANT_Float_info</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CONSTANT-Long-info"><span class="nav-number">1.3.4.</span> <span class="nav-text">CONSTANT_Long_info</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CONSTANT-Double-info"><span class="nav-number">1.3.5.</span> <span class="nav-text">CONSTANT_Double_info</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CONSTANT-Class-info"><span class="nav-number">1.3.6.</span> <span class="nav-text">CONSTANT_Class_info</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CONSTANT-String-info"><span class="nav-number">1.3.7.</span> <span class="nav-text">CONSTANT_String_info</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CONSTANT-Fieldref-info"><span class="nav-number">1.3.8.</span> <span class="nav-text">CONSTANT_Fieldref_info</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CONSTANT-Methodref-info"><span class="nav-number">1.3.9.</span> <span class="nav-text">CONSTANT_Methodref_info</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CONSTANT-InterfaceMethodref-info"><span class="nav-number">1.3.10.</span> <span class="nav-text">CONSTANT_InterfaceMethodref_info</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CONSTANT-NameAndType-info"><span class="nav-number">1.3.11.</span> <span class="nav-text">CONSTANT_NameAndType_info</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">家浩</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
