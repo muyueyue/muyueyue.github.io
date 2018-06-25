@@ -445,16 +445,16 @@
 <p>获取Class类对象的引用有三种方法</p>
 <ul>
 <li><p>使用forName()方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class c = Class.forName(&quot;java.lang.Object&quot;);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class c = Class.forName(&quot;java.lang.Object&quot;);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用getClass()方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Object o = new Object();</div><div class="line">Class c = o.getClass();</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object o = new Object();</span><br><span class="line">Class c = o.getClass();</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用.class</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class c = Object.class;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class c = Object.class;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>上诉代码中的变量”c”便是一个Object类对应的Class对象的引用，该对象和方法区中的类信息对应，因此使用Class类提供的方法可以获取一些类的信息，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">c.getName();</div><div class="line">c.getSuperClass();</div><div class="line">c.isInterface();</div><div class="line">c.getClassLoader();</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p>上诉代码中的变量”c”便是一个Object类对应的Class对象的引用，该对象和方法区中的类信息对应，因此使用Class类提供的方法可以获取一些类的信息，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">c.getName();</span><br><span class="line">c.getSuperClass();</span><br><span class="line">c.isInterface();</span><br><span class="line">c.getClassLoader();</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
 <p><code>方法表</code>：为了提高访问效率，JVM的实现者可以设计一些高效的数据结构，这里说的方法表就是一个位于方法区中用于加快访问原始数据的结构。方法表是一个数组，它的元素是类实例所有可能被调用的实例方法的直接引用，包括那些从超类继承过来的实例方法。它也存储在方法区，每个方法表对应一个自己的类。</p>
 <h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p>Java程序运行时创建的类实例或数组都存储在堆中，一个JVM只有一个堆空间，堆是所有线程共享的，大小没有固定，空间也不需要是连续的。Java中有在堆中为对象分配空间指令，但并没有释放内存的指令，因此对象的销毁不需要程序的开发者自己考虑，JVM中有垃圾回收线程，会自动清理那些不再需要的对象。</p>
 <p>但JVM规范也没有强制JVM必须实现具体的垃圾收集器，只要求JVM必须以某种方式管理自己的堆空间。例如某个实现可能在堆空间不足的时候直接抛出OutOfMemory异常，不去考虑回收垃圾对象的问题。这个实现虽然简单粗暴，但也符合JVM规范。关于垃圾收集器会在以后的文章会详细介绍。</p>
@@ -501,8 +501,8 @@
 <p>Java指令集和操作系统的指令集类似，但Java指令集是基于栈，由于JVM中没有寄存器等硬件，所以Java指令的执行其实是在操作栈帧中的操作数栈，伴随着一系列出栈入栈。Java指令的大小为一个字节，因此Java指令集大概有200多条指令，有些指令的操作码（决定这条指令的行为，是做加运算还是乘运算等）后跟随着操作数（被操作码操作的对象），但有些指令并没有操作数，操作的数据着位于另外的存储区中如栈帧中的局部变量区中数据亦或是栈帧中操作数栈的栈顶元素。</p>
 </blockquote>
 <p>Java指令集中的每条操作码都以助记符来表示，助记符可以理解为一些定义好的符号标记来区分各种不同的操作，其具有典型的汇编风格。例如”iconst_1”，这个助记符表示将一个int型数据‘1’压入操作数栈中，下面来看一个具体的例子：</p>
-<p>有一个Java方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public  static int add()&#123;</div><div class="line">        int result = 0;</div><div class="line">        int i = 2;</div><div class="line">        int j = 3;</div><div class="line">        int c = 5;</div><div class="line">        return result = (i + j) * c;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>这个方法编译后形成的指令序列如下（去除了一些和要讲述无关的内容）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">stack=2, locals=4, args_size=0     //栈深度2，局部变量4个，参数0个</div><div class="line">         0: iconst_0  //对应result=0,0入栈</div><div class="line">         1: istore_0  //取出栈顶元素0，将其存放在第0个局部变量solt中</div><div class="line">         2: iconst_2  //对应i=2,2入栈</div><div class="line">         3: istore_1  //取出栈顶元素2，将其存放在第1个局部变量solt中</div><div class="line">         4: iconst_3  //对应 j=3，3入栈</div><div class="line">         5: istore_2  //取出栈顶元素3，将其存放在第2个局部变量solt中</div><div class="line">         6: iconst_5  //对应c=5，5入栈</div><div class="line">         7: istore_3  //取出栈顶元素，将其存放在第3个局部变量solt中</div><div class="line">         8: iload_1   //将局部变量表的第一个slot中的数值2复制到栈顶</div><div class="line">         9: iload_2   //将局部变量表中的第二个slot中的数值3复制到栈顶</div><div class="line">        10: iadd      //两个栈顶元素2,3出栈，执行相加，将结果5重新入栈</div><div class="line">        11: iload_3   //将局部变量表中的第三个slot中的数字5复制到栈顶</div><div class="line">        12: imul      //两个栈顶元素出栈5,5出栈，执行相乘，然后入栈</div><div class="line">        13: dup       //复制栈顶元素25，并将复制值压入栈顶.</div><div class="line">        14: istore_0  //取出栈顶元素25，将其存放在第0个局部变量solt中</div><div class="line">        15: ireturn   //将栈顶元素25返回给它的调用者</div></pre></td></tr></table></figure></p>
+<p>有一个Java方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public  static int add()&#123;</span><br><span class="line">        int result = 0;</span><br><span class="line">        int i = 2;</span><br><span class="line">        int j = 3;</span><br><span class="line">        int c = 5;</span><br><span class="line">        return result = (i + j) * c;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个方法编译后形成的指令序列如下（去除了一些和要讲述无关的内容）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">stack=2, locals=4, args_size=0     //栈深度2，局部变量4个，参数0个</span><br><span class="line">         0: iconst_0  //对应result=0,0入栈</span><br><span class="line">         1: istore_0  //取出栈顶元素0，将其存放在第0个局部变量solt中</span><br><span class="line">         2: iconst_2  //对应i=2,2入栈</span><br><span class="line">         3: istore_1  //取出栈顶元素2，将其存放在第1个局部变量solt中</span><br><span class="line">         4: iconst_3  //对应 j=3，3入栈</span><br><span class="line">         5: istore_2  //取出栈顶元素3，将其存放在第2个局部变量solt中</span><br><span class="line">         6: iconst_5  //对应c=5，5入栈</span><br><span class="line">         7: istore_3  //取出栈顶元素，将其存放在第3个局部变量solt中</span><br><span class="line">         8: iload_1   //将局部变量表的第一个slot中的数值2复制到栈顶</span><br><span class="line">         9: iload_2   //将局部变量表中的第二个slot中的数值3复制到栈顶</span><br><span class="line">        10: iadd      //两个栈顶元素2,3出栈，执行相加，将结果5重新入栈</span><br><span class="line">        11: iload_3   //将局部变量表中的第三个slot中的数字5复制到栈顶</span><br><span class="line">        12: imul      //两个栈顶元素出栈5,5出栈，执行相乘，然后入栈</span><br><span class="line">        13: dup       //复制栈顶元素25，并将复制值压入栈顶.</span><br><span class="line">        14: istore_0  //取出栈顶元素25，将其存放在第0个局部变量solt中</span><br><span class="line">        15: ireturn   //将栈顶元素25返回给它的调用者</span><br></pre></td></tr></table></figure></p>
 <p>上述代码中已经很清楚地展示了方法被编译后的样子，以及指令的形式，JVM执行引擎安装顺序逐条解释运行，上面的栈对应的是栈帧中的操作数栈。这就是一个最简单的方法的执行过程。</p>
 <p>在执行引擎中还有很多内容，为了不增加理解上的负担，此处不一一介绍，下面只介绍下JVM中从一个Java源文件到具体执行的大致流程：</p>
 <p>当我们写好了一个Java源文件，我们使用javac进行编译，编译的时候遵循现在经典的编译原理规则，大致是先进行词法、语法分析，形成抽象语法树，再经过一些步骤形成了最终的字节码，当JVM将字节码加载进后对字节码进行逐条解释执行就像上面所展示的那样，因此Java也可以说是半编译半解释型语言。在这其中涉及到一些技术：解释、即时编译、自适应优化</p>
@@ -622,7 +622,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -633,7 +633,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -644,7 +644,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -686,7 +686,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

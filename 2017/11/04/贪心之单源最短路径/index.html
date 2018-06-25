@@ -375,7 +375,7 @@
       
         <h4 id="问题介绍"><a href="#问题介绍" class="headerlink" title="问题介绍"></a>问题介绍</h4><p>给定一个带权有向图G=（V,E），其中每条边的权是一个实数。另外，还给定V中的一个顶点，称为源。现在要计算从源到其他所有各顶点的最短路径长度。这里的长度就是指路上各边权之和。这个问题通常称为单源最短路径问题</p>
 <h4 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h4><p>对于单源最短路径问题可以用贪心算法解决。Dijkstra是解决该问题的一个贪心算法</p>
-<h4 id="Dijkstra算法实现"><a href="#Dijkstra算法实现" class="headerlink" title="Dijkstra算法实现"></a>Dijkstra算法实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">def Dijkstra(E, v, n):</div><div class="line">    # 相关数据初始化部分</div><div class="line">    MAX = 99999</div><div class="line">    dis = [MAX for i in range(n + 1)]</div><div class="line">    s = [False for i in range(n + 1)]</div><div class="line">    dis[v] = 0</div><div class="line">    s[v] = True</div><div class="line">    for i in range(1, n + 1):</div><div class="line">        dis[i] = E[v][i]</div><div class="line"></div><div class="line">    # 本算法的核心部分</div><div class="line">    for i in range(1, n + 1):</div><div class="line">        min = MAX</div><div class="line">        for j in range(1, n + 1):</div><div class="line">            if (not s[j]) and (dis[j] &lt; min):</div><div class="line">                min = dis[j]</div><div class="line">                u = j</div><div class="line">        s[u] = True</div><div class="line">        for j in range(1, n + 1):</div><div class="line">            if (not s[j]) and (E[u][j] &lt; MAX):</div><div class="line">                ndis = dis[u] + E[u][j]</div><div class="line">                if ndis &lt; dis[j]:</div><div class="line">                    dis[j] = ndis</div><div class="line">    return dis</div></pre></td></tr></table></figure>
+<h4 id="Dijkstra算法实现"><a href="#Dijkstra算法实现" class="headerlink" title="Dijkstra算法实现"></a>Dijkstra算法实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">def Dijkstra(E, v, n):</span><br><span class="line">    # 相关数据初始化部分</span><br><span class="line">    MAX = 99999</span><br><span class="line">    dis = [MAX for i in range(n + 1)]</span><br><span class="line">    s = [False for i in range(n + 1)]</span><br><span class="line">    dis[v] = 0</span><br><span class="line">    s[v] = True</span><br><span class="line">    for i in range(1, n + 1):</span><br><span class="line">        dis[i] = E[v][i]</span><br><span class="line"></span><br><span class="line">    # 本算法的核心部分</span><br><span class="line">    for i in range(1, n + 1):</span><br><span class="line">        min = MAX</span><br><span class="line">        for j in range(1, n + 1):</span><br><span class="line">            if (not s[j]) and (dis[j] &lt; min):</span><br><span class="line">                min = dis[j]</span><br><span class="line">                u = j</span><br><span class="line">        s[u] = True</span><br><span class="line">        for j in range(1, n + 1):</span><br><span class="line">            if (not s[j]) and (E[u][j] &lt; MAX):</span><br><span class="line">                ndis = dis[u] + E[u][j]</span><br><span class="line">                if ndis &lt; dis[j]:</span><br><span class="line">                    dis[j] = ndis</span><br><span class="line">    return dis</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -417,6 +417,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/25/HBase整体结构/" rel="prev" title="HBase整体结构">
+                HBase整体结构 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -484,7 +488,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -495,7 +499,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -506,7 +510,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -548,7 +552,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -378,7 +378,7 @@
 <h4 id="动态规划实现"><a href="#动态规划实现" class="headerlink" title="动态规划实现"></a>动态规划实现</h4><p>对于穷举法的一个缺点就是计算了所有的情况，但却没有记录下来每种情况的信息，导致每次判断一个子串的时候都要重新调用判断字符串是否为回文的算法。例如：从索引为6到16的子串已经判断了其不是回文串，但在计算索引为5到17的子串时又重新遍历一下这个子串，判断其是否为回文；试想如果我们能将索引为6到16的子串信息记录下来，即记录下它不是回文串，在判断5到17是否为回文串的时候只需要读取以前记录的信息，得知索引为6到16的子串不是回文串，则5到17的子串自然也不是回文串了，这样就省去了重新遍历一遍子串的时间。</p>
 <p>动态规划实现就是利用这个思想，先计算并记录下长度为1的所有子串是否为回文，只有一个字符，自然是回文，再计算并记录下长度为2的所有子串是否为回文，依次到整个原始字符串，当判断一个子串是否为回文时，先判断其除了两端字符后的串，此时只要获取以前记录的信息就能得知，如果不是回文串，加上两端的字符也不是回文串；如果是回文串，那么就判断两端的字符是否相等来得出结果。这样时间复杂为O(n^2)</p>
 <p>算法实现:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">def longestPalindrome(s):</div><div class="line">    maxLen = 1</div><div class="line">    index = 0</div><div class="line">    slen = len(s)</div><div class="line">    # 记录每次计算结果的布尔数组</div><div class="line">    # dp[i][j]为True则表示索引为i到j的子串是回文串</div><div class="line">    # 反之则不是回文串</div><div class="line">    dp = [[0 for i in range(slen)] for i in range(slen)]</div><div class="line">    # 长度为1的子串都是回文串</div><div class="line">    for i in range(slen):</div><div class="line">        dp[i][i] = True</div><div class="line">    # 子串的长度从2开始递增</div><div class="line">    for l in range(2, slen + 1):</div><div class="line">        # 子串起始字符在原始字符串中的索引值</div><div class="line">        for i in range(slen - l + 1):</div><div class="line">            # 子串最后一个字符在原始字符串中的索引值 </div><div class="line">            j = i + l - 1</div><div class="line">            # 如果子串两端的字符相同的情况下</div><div class="line">            if s[i] == s[j]:</div><div class="line">                # 如果子串长度为2或者除去两端字符剩下的串是回文串，则该子串是回文串</div><div class="line">                if ((i + 1) &gt; (j - 1)) or (dp[i + 1][j - 1]):</div><div class="line">                    dp[i][j] = True</div><div class="line">                    # 更新信息</div><div class="line">                    if l &gt; maxLen:</div><div class="line">                        maxLen = l</div><div class="line">                        index = i</div><div class="line">                # 否则不是回文串</div><div class="line">                else:</div><div class="line">                    dp[i][j] = False</div><div class="line">            # 否则不是回文串</div><div class="line">            else:</div><div class="line">                dp[i][j] = False</div><div class="line">    return s[index:index+maxLen]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">def longestPalindrome(s):</span><br><span class="line">    maxLen = 1</span><br><span class="line">    index = 0</span><br><span class="line">    slen = len(s)</span><br><span class="line">    # 记录每次计算结果的布尔数组</span><br><span class="line">    # dp[i][j]为True则表示索引为i到j的子串是回文串</span><br><span class="line">    # 反之则不是回文串</span><br><span class="line">    dp = [[0 for i in range(slen)] for i in range(slen)]</span><br><span class="line">    # 长度为1的子串都是回文串</span><br><span class="line">    for i in range(slen):</span><br><span class="line">        dp[i][i] = True</span><br><span class="line">    # 子串的长度从2开始递增</span><br><span class="line">    for l in range(2, slen + 1):</span><br><span class="line">        # 子串起始字符在原始字符串中的索引值</span><br><span class="line">        for i in range(slen - l + 1):</span><br><span class="line">            # 子串最后一个字符在原始字符串中的索引值 </span><br><span class="line">            j = i + l - 1</span><br><span class="line">            # 如果子串两端的字符相同的情况下</span><br><span class="line">            if s[i] == s[j]:</span><br><span class="line">                # 如果子串长度为2或者除去两端字符剩下的串是回文串，则该子串是回文串</span><br><span class="line">                if ((i + 1) &gt; (j - 1)) or (dp[i + 1][j - 1]):</span><br><span class="line">                    dp[i][j] = True</span><br><span class="line">                    # 更新信息</span><br><span class="line">                    if l &gt; maxLen:</span><br><span class="line">                        maxLen = l</span><br><span class="line">                        index = i</span><br><span class="line">                # 否则不是回文串</span><br><span class="line">                else:</span><br><span class="line">                    dp[i][j] = False</span><br><span class="line">            # 否则不是回文串</span><br><span class="line">            else:</span><br><span class="line">                dp[i][j] = False</span><br><span class="line">    return s[index:index+maxLen]</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注：在这里只讲解动态规划实现，该问题的解决算法还有其他如：中心扩散法以及马拉车算法，在此就不讲解了</p>
 </blockquote>
@@ -494,7 +494,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -505,7 +505,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -516,7 +516,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -558,7 +558,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

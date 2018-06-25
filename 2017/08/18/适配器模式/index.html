@@ -370,20 +370,20 @@
 </blockquote>
 <h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>我们有如下两个类：</p>
 <p>Target.java（目标类）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public interface Target&#123;</div><div class="line">    public void request();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Adaptee.java（适配者）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public class Adaptee&#123;</div><div class="line">    public void otherRequest()&#123;</div><div class="line">        //do something</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public interface Target&#123;</span><br><span class="line">    public void request();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Adaptee.java（适配者）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Adaptee&#123;</span><br><span class="line">    public void otherRequest()&#123;</span><br><span class="line">        //do something</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>一个用户想调用Target类的request方法，该方法并不能满足用户的要求，但Adaptee类中的otherRequest方法却符合用户需求，因此我们引进了一个适配器类将两个类的方法进行整合。适配器代码如下：</p>
 <p>Adapter.java（适配器）</p>
 <ul>
 <li><h5 id="对象结构型模式"><a href="#对象结构型模式" class="headerlink" title="对象结构型模式"></a>对象结构型模式</h5></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class Adapter implements Target&#123;</div><div class="line">    private Adaptee adaptee = new Adaptee();</div><div class="line">    public void request()&#123;</div><div class="line">        adaptee.otherRequest();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Adapter implements Target&#123;</span><br><span class="line">    private Adaptee adaptee = new Adaptee();</span><br><span class="line">    public void request()&#123;</span><br><span class="line">        adaptee.otherRequest();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><h5 id="类结构型模式"><a href="#类结构型模式" class="headerlink" title="类结构型模式"></a>类结构型模式</h5></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class Adapter extends Adaptee implements Target &#123;  </div><div class="line">    public void request() &#123;  </div><div class="line">        otherRequest();  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Adapter extends Adaptee implements Target &#123;  </span><br><span class="line">    public void request() &#123;  </span><br><span class="line">        otherRequest();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用适配器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public class Client&#123;</div><div class="line">    public static void main(String[] args)&#123;</div><div class="line">        Adapter adapter = new Adapter();</div><div class="line">        adapter.request();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Client&#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Adapter adapter = new Adapter();</span><br><span class="line">        adapter.request();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对象适配器使用的是类的组合，将Adaptee组合到Adapter中；类结构模式使用的是类的继承，这里推荐使用组合而不使用继承，且Java不支持多继承，如果Target是一个具体的类时类结构不适用。</p>
 <p>当我们在某个地方要使用Target类的request方法时，我们只需要实例化出一个Adapter对象，调用request方法就能实现Adaptee类中otherRequest方法的功能。</p>
 <p>到这里可能有些人会疑问，既然Target的request方法不能满足需求而Adaptee的otherRequest方法能，为什么不直接调用otherRequest方法呢？试想如果你使用一个第三方的工具，该工具中的某个方法接受一个Target类型的参数，并调用Target的request方法。你不能去修改第三方工具的代码，又为了实现需求，你的办法就是使用适配器模式，引入适配器类实现Target接口，在重载的request方法中调用otherRequest方法已实现需求。</p>
@@ -509,7 +509,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -520,7 +520,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -531,7 +531,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -573,7 +573,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
